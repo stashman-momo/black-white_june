@@ -6,12 +6,12 @@
 <title>MoMo's Stash — Coffee Order Form</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #f5f4f0; font-family: 'DM Sans', sans-serif; min-height: 100vh; padding: 2rem 1rem; color: #1a1a1a; }
-
   .page-wrap { max-width: 680px; margin: 0 auto; }
-
   .ms-card { background: #ffffff; border-radius: 16px; border: 1px solid #e5e3dc; padding: 2rem; margin-bottom: 1rem; }
 
   /* Header */
@@ -23,18 +23,14 @@
   .ms-bw-credit { font-size: 11px; color: #999; text-align: right; line-height: 1.5; margin-left: auto; }
   .ms-bw-credit strong { color: #555; }
 
-  /* Section labels */
   .ms-sec { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: #999; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
   .ms-sec i { font-size: 14px; }
-
   hr.ms-div { border: none; border-top: 1px solid #ede9e0; margin: 1.25rem 0; }
 
-  /* Grids */
   .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
   .g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
   .gf { margin-bottom: 12px; }
 
-  /* Form elements */
   .ms-lbl { font-size: 12px; color: #777; margin-bottom: 5px; display: block; font-weight: 500; }
   .ms-req { color: #e24b4a; margin-left: 2px; }
   .ms-input, .ms-sel {
@@ -47,7 +43,6 @@
   .ms-input:focus, .ms-sel:focus { outline: none; border-color: #1a1a1a; box-shadow: 0 0 0 3px rgba(26,26,26,.08); }
   .ms-sel { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 30px; }
 
-  /* Coffee cards */
   .cof-card { background: #fafaf8; border: 1px solid #e5e3dc; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
   .cof-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
   .cof-num { width: 22px; height: 22px; border-radius: 50%; background: #1a1a1a; color: #fff; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -58,12 +53,10 @@
   .ms-price-tag { font-size: 11px; color: #aaa; margin-top: 5px; min-height: 16px; }
   .ms-price-tag strong { color: #1a1a1a; }
 
-  /* Add coffee button */
   .ms-add-btn { width: 100%; height: 38px; border: 1px dashed #ccc; border-radius: 8px; background: none; color: #999; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: 'DM Sans', sans-serif; transition: all .15s; margin-bottom: 4px; }
   .ms-add-btn:hover { border-color: #1a1a1a; color: #1a1a1a; background: rgba(0,0,0,.02); }
   .ms-add-btn:disabled { opacity: .35; cursor: not-allowed; }
 
-  /* Order summary */
   .ms-summary { background: #fafaf8; border: 1px solid #e5e3dc; border-radius: 12px; padding: 16px; margin-top: 1.25rem; display: none; }
   .ms-sum-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
   .ms-sum-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid #ede9e0; font-size: 13px; gap: 12px; }
@@ -76,7 +69,6 @@
   .ms-sum-total-inr { font-size: 12px; color: #888; text-align: right; padding-bottom: 4px; }
   .ms-ship-note { font-size: 11px; color: #aaa; margin-top: 10px; padding-top: 10px; border-top: 1px solid #ede9e0; line-height: 1.6; }
 
-  /* T&C */
   .ms-tnc { background: #fafaf8; border: 1px solid #e5e3dc; border-radius: 12px; padding: 14px 16px; margin-top: 1.25rem; }
   .ms-tnc-title { font-size: 12px; font-weight: 500; color: #555; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
   .ms-tnc ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -85,34 +77,71 @@
   .ms-tnc a { color: #1a1a1a; font-weight: 500; text-decoration: none; border-bottom: 1px solid #ccc; }
   .ms-tnc a:hover { border-color: #1a1a1a; }
 
-  /* Actions */
   .ms-actions { display: flex; gap: 10px; margin-top: 1.5rem; }
   .ms-btn-p { flex: 1; height: 42px; background: #1a1a1a; border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'DM Sans', sans-serif; transition: background .15s; }
   .ms-btn-p:hover { background: #333; }
   .ms-btn-s { height: 42px; padding: 0 18px; border: 1px solid #e0ddd5; border-radius: 8px; background: #fff; color: #555; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: 'DM Sans', sans-serif; transition: all .15s; }
   .ms-btn-s:hover { background: #fafaf8; }
 
-  /* Order list */
-  .ms-orders { background: #fff; border: 1px solid #e5e3dc; border-radius: 12px; overflow: hidden; margin-top: 1rem; }
-  .ms-otbl-hdr { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #fafaf8; border-bottom: 1px solid #e5e3dc; }
-  .ms-otbl-title { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; }
-  .ms-count { background: #1a1a1a; color: #fff; font-size: 11px; border-radius: 20px; padding: 1px 8px; }
-  .ms-exp-btn { height: 32px; padding: 0 14px; background: #fff; border: 1px solid #e0ddd5; border-radius: 8px; color: #555; font-size: 12px; cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: 'DM Sans', sans-serif; transition: all .15s; }
-  .ms-exp-btn:hover { background: #f5f4f0; }
-  .ms-tbl-scroll { overflow-x: auto; }
-  table.ms-tbl { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 800px; }
-  table.ms-tbl th { padding: 8px 10px; text-align: left; font-size: 11px; font-weight: 500; color: #999; background: #fafaf8; border-bottom: 1px solid #e5e3dc; white-space: nowrap; }
-  table.ms-tbl td { padding: 9px 10px; border-bottom: 1px solid #f0ede6; color: #1a1a1a; vertical-align: middle; white-space: nowrap; }
-  table.ms-tbl tr:last-child td { border-bottom: none; }
-  table.ms-tbl tr:hover td { background: #fafaf8; }
-  .ms-del { background: none; border: none; cursor: pointer; color: #ccc; padding: 4px; border-radius: 4px; }
-  .ms-del:hover { color: #e24b4a; background: #fee; }
+  /* ── CONFIRMATION MODAL ── */
+  .ms-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; padding: 1rem;
+    opacity: 0; pointer-events: none; transition: opacity .25s;
+  }
+  .ms-modal-overlay.show { opacity: 1; pointer-events: all; }
+  .ms-modal { background: #fff; border-radius: 16px; width: 100%; max-width: 480px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.2); transform: translateY(12px); transition: transform .25s; }
+  .ms-modal-overlay.show .ms-modal { transform: translateY(0); }
+
+  /* The card that gets screenshotted */
+  #ms-receipt-card {
+    background: #fff;
+    padding: 28px 28px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .rc-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1.5px solid #1a1a1a; }
+  .rc-logo { width: 40px; height: 40px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .rc-brand { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #1a1a1a; }
+  .rc-sub { font-size: 11px; color: #999; margin-top: 1px; }
+  .rc-badge { margin-left: auto; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 500; color: #15803d; display: flex; align-items: center; gap: 4px; }
+
+  .rc-section-label { font-size: 10px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: #bbb; margin-bottom: 8px; margin-top: 16px; }
+  .rc-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
+  .rc-detail { font-size: 12px; }
+  .rc-detail .key { color: #aaa; font-size: 11px; }
+  .rc-detail .val { color: #1a1a1a; font-weight: 500; margin-top: 1px; }
+  .rc-address { font-size: 12px; color: #1a1a1a; line-height: 1.6; }
+
+  .rc-coffee-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f0ede6; font-size: 12px; gap: 8px; }
+  .rc-coffee-row:last-of-type { border-bottom: none; }
+  .rc-coffee-name { color: #1a1a1a; font-weight: 500; line-height: 1.4; }
+  .rc-coffee-meta { font-size: 11px; color: #aaa; margin-top: 1px; }
+  .rc-coffee-price { text-align: right; white-space: nowrap; }
+  .rc-coffee-price .usd { font-weight: 500; color: #1a1a1a; }
+  .rc-coffee-price .inr { font-size: 11px; color: #aaa; margin-top: 1px; }
+
+  .rc-total-block { background: #1a1a1a; border-radius: 10px; padding: 14px 16px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .rc-total-label { font-size: 12px; color: #999; }
+  .rc-total-label .main { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+  .rc-total-inr { text-align: right; }
+  .rc-total-inr .usd-val { font-size: 15px; font-weight: 600; color: #fff; }
+  .rc-total-inr .inr-val { font-size: 12px; color: #aaa; margin-top: 2px; }
+
+  .rc-footer { margin-top: 16px; text-align: center; font-size: 10px; color: #ccc; line-height: 1.6; }
+  .rc-footer strong { color: #aaa; }
+
+  /* Modal action buttons */
+  .ms-modal-actions { display: flex; gap: 10px; padding: 16px 28px 24px; background: #fafaf8; border-top: 1px solid #ede9e0; }
+  .ms-dl-btn { flex: 1; height: 42px; background: #1a1a1a; border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'DM Sans', sans-serif; transition: background .15s; }
+  .ms-dl-btn:hover { background: #333; }
+  .ms-close-btn { height: 42px; padding: 0 18px; border: 1px solid #e0ddd5; border-radius: 8px; background: #fff; color: #555; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: 'DM Sans', sans-serif; }
+  .ms-close-btn:hover { background: #f0ede6; }
 
   /* Toast */
-  .ms-toast { position: fixed; bottom: 24px; right: 24px; background: #1a1a1a; color: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; display: flex; align-items: center; gap: 8px; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+  .ms-toast { position: fixed; bottom: 24px; right: 24px; background: #1a1a1a; color: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; display: flex; align-items: center; gap: 8px; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 9999; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
   .ms-toast.show { opacity: 1; }
 
-  /* Footer */
   .ms-footer { text-align: center; font-size: 11px; color: #bbb; margin-top: 1.5rem; padding-bottom: 1rem; }
 
   @media (max-width: 560px) {
@@ -120,13 +149,13 @@
     .g2, .g3, .cof-fields { grid-template-columns: 1fr; }
     .ms-header { flex-wrap: wrap; }
     .ms-bw-credit { text-align: left; margin-left: 0; width: 100%; }
+    #ms-receipt-card { padding: 20px; }
   }
 </style>
 </head>
 <body>
 <div class="page-wrap">
   <div class="ms-card">
-
     <!-- HEADER -->
     <div class="ms-header">
       <div class="ms-logo-wrap">
@@ -171,11 +200,10 @@
 
     <hr class="ms-div">
     <div class="ms-sec"><i class="ti ti-coffee"></i> Coffee order <span style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0;margin-left:4px">(up to 3 bags per person)</span></div>
-
     <div id="ms-coffees"></div>
     <button class="ms-add-btn" id="ms-add-btn" onclick="addCoffee()"><i class="ti ti-plus"></i> Add another coffee</button>
 
-    <!-- ORDER SUMMARY -->
+    <!-- LIVE SUMMARY -->
     <div class="ms-summary" id="ms-summary">
       <div class="ms-sum-title"><i class="ti ti-receipt" style="font-size:16px"></i> Your order summary</div>
       <div id="ms-sum-lines"></div>
@@ -187,62 +215,88 @@
           <div class="ms-sum-val-inr" id="ms-ship-inr"></div>
         </div>
       </div>
-      <div class="ms-sum-total">
-        <span>Total</span>
-        <span id="ms-total-usd"></span>
-      </div>
+      <div class="ms-sum-total"><span>Total</span><span id="ms-total-usd"></span></div>
       <div class="ms-sum-total-inr" id="ms-total-inr"></div>
-      <div class="ms-ship-note">USD prices as listed on Black &amp; White Coffee Roasters' website. INR conversion at ₹100 per $1 USD. Shipping &amp; customs charged at ₹800 per bag.</div>
+      <div class="ms-ship-note">USD prices as listed on Black &amp; White Coffee Roasters' website. INR conversion at ₹100 per $1 USD. Shipping &amp; customs at ₹800 per bag.</div>
     </div>
 
     <!-- T&C -->
     <div class="ms-tnc">
       <div class="ms-tnc-title"><i class="ti ti-info-circle" style="font-size:14px"></i> Terms &amp; conditions</div>
       <ul>
-        <li>Once your order is submitted, we'll reach out to you with payment details. Your order is only considered confirmed once full payment has been received.</li>
+        <li>Once your order is submitted, we'll reach out to you with payment details. Your order is only confirmed once full payment has been received.</li>
         <li>Shipping typically takes around 2 weeks from the US to India, subject to customs clearance timelines at both ends.</li>
         <li>Once the coffee arrives in Mumbai, any onward local delivery charges will be on actuals and are to be borne by the buyer.</li>
-        <li>For more drops, updates &amp; all things coffee, follow us on Instagram — <a href="https://instagram.com/momos.stash" target="_blank">@momos.stash</a></li>
+        <li>For more drops, updates &amp; all things coffee, follow us on Instagram — <a href="https://instagram.com/momos_stash" target="_blank">@momos_stash</a></li>
       </ul>
     </div>
 
     <!-- ACTIONS -->
     <div class="ms-actions">
       <button class="ms-btn-s" onclick="clearForm()"><i class="ti ti-refresh"></i> Clear</button>
-      <button class="ms-btn-p" onclick="submitOrder()"><i class="ti ti-circle-check"></i> Add to order list</button>
-    </div>
-
-  </div><!-- end ms-card -->
-
-  <!-- ORDER LIST -->
-  <div class="ms-orders" id="ms-orders-section" style="display:none">
-    <div class="ms-otbl-hdr">
-      <div class="ms-otbl-title"><i class="ti ti-list"></i> Order list <span class="ms-count" id="ms-count">0</span></div>
-      <button class="ms-exp-btn" onclick="exportExcel()"><i class="ti ti-file-spreadsheet"></i> Export to Excel</button>
-    </div>
-    <div class="ms-tbl-scroll">
-      <table class="ms-tbl">
-        <thead>
-          <tr>
-            <th>#</th><th>Name</th><th>Mobile</th><th>City</th><th>State</th>
-            <th>Coffee 1</th><th>Size 1</th><th>Qty 1</th><th>Price 1 ($)</th>
-            <th>Coffee 2</th><th>Size 2</th><th>Qty 2</th><th>Price 2 ($)</th>
-            <th>Coffee 3</th><th>Size 3</th><th>Qty 3</th><th>Price 3 ($)</th>
-            <th>Subtotal ($)</th><th>Shipping (₹)</th><th>Total (₹)</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="ms-tbody"></tbody>
-      </table>
+      <button class="ms-btn-p" onclick="submitOrder()"><i class="ti ti-circle-check"></i> Submit Order</button>
     </div>
   </div>
-
   <div class="ms-footer">MoMo's Stash · Private Coffee Drop · Powered with ☕</div>
+</div>
+
+<!-- ── CONFIRMATION MODAL ── -->
+<div class="ms-modal-overlay" id="ms-modal">
+  <div class="ms-modal">
+    <!-- Receipt card (this is what gets screenshotted) -->
+    <div id="ms-receipt-card">
+      <div class="rc-header">
+        <div class="rc-logo">
+          <svg width="30" height="30" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="20" fill="#1a1a1a"/>
+            <rect x="13" y="17" width="18" height="16" rx="2" fill="#e8d5b0"/>
+            <path d="M17 17v-3a5 5 0 0110 0v3" stroke="#e8d5b0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path d="M17.5 28v-6l4.5 3 4.5-3v6" stroke="#1a1a1a" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="rc-brand">MoMo's Stash</div>
+          <div class="rc-sub">Black &amp; White Coffee Roasters Drop</div>
+        </div>
+        <div class="rc-badge">✓ Order Received</div>
+      </div>
+
+      <div class="rc-section-label">Customer</div>
+      <div class="rc-detail-grid" id="rc-customer"></div>
+
+      <div class="rc-section-label" style="margin-top:14px">Delivery address</div>
+      <div class="rc-address" id="rc-address"></div>
+
+      <div class="rc-section-label" style="margin-top:14px">Coffee order</div>
+      <div id="rc-coffees"></div>
+
+      <div class="rc-total-block">
+        <div>
+          <div class="rc-total-label main">Total payable</div>
+          <div class="rc-total-label">incl. shipping &amp; customs</div>
+        </div>
+        <div class="rc-total-inr">
+          <div class="usd-val" id="rc-total-usd"></div>
+          <div class="inr-val" id="rc-total-inr"></div>
+        </div>
+      </div>
+
+      <div class="rc-footer">
+        We'll reach out on <strong id="rc-mobile-footer"></strong> with payment details.<br>
+        Follow <strong>@momos_stash</strong> on Instagram for more drops ☕
+      </div>
+    </div>
+
+    <!-- Action buttons (NOT included in screenshot) -->
+    <div class="ms-modal-actions">
+      <button class="ms-dl-btn" onclick="downloadPNG()"><i class="ti ti-download"></i> Save as Image</button>
+      <button class="ms-close-btn" onclick="closeModal()"><i class="ti ti-x"></i> Close</button>
+    </div>
+  </div>
 </div>
 
 <div class="ms-toast" id="ms-toast"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 const COFFEES = [
   {name:"El Burro - Natural Gesha Lot E", prices:{"6oz":18.00,"12oz":32.00}},
@@ -265,7 +319,7 @@ const COFFEES = [
 const SIZES = ["6oz","12oz"];
 const USD_TO_INR = 100;
 const SHIP_INR = 800;
-let coffeeCount = 1, orders = [], seq = 1;
+let coffeeCount = 1;
 
 function buildCoffeeCard(i) {
   const div = document.createElement('div');
@@ -334,7 +388,7 @@ function updatePrice(i) {
   if (!tag) return;
   const p = getCoffeePrice(name, size);
   if (p !== null) {
-    tag.innerHTML = `<strong>$${p.toFixed(2)} USD</strong> &nbsp;·&nbsp; ₹${(p * USD_TO_INR).toLocaleString('en-IN')} per bag`;
+    tag.innerHTML = `<strong>$${p.toFixed(2)} USD</strong> &nbsp;·&nbsp; ₹${(p*USD_TO_INR).toLocaleString('en-IN')} per bag`;
   } else if (name && !size) {
     const cf = COFFEES.find(c => c.name === name);
     tag.innerHTML = `6oz from <strong>$${cf.prices['6oz'].toFixed(2)}</strong> &nbsp;·&nbsp; 12oz from <strong>$${cf.prices['12oz'].toFixed(2)}</strong>`;
@@ -362,13 +416,13 @@ function updateSummary() {
     <div class="ms-sum-row">
       <span class="ms-sum-label">${l.name} <span style="font-size:11px;color:#bbb">(${l.size} × ${l.qty})</span></span>
       <div>
-        <div class="ms-sum-val">$${(l.unitUSD * l.qty).toFixed(2)}</div>
-        <div class="ms-sum-val-inr">₹${(l.unitUSD * l.qty * USD_TO_INR).toLocaleString('en-IN')}</div>
+        <div class="ms-sum-val">$${(l.unitUSD*l.qty).toFixed(2)}</div>
+        <div class="ms-sum-val-inr">₹${(l.unitUSD*l.qty*USD_TO_INR).toLocaleString('en-IN')}</div>
       </div>
     </div>`).join('');
   const shipINR = bags * SHIP_INR;
   const shipUSD = shipINR / USD_TO_INR;
-  document.getElementById('ms-ship-usd').textContent = `$${shipUSD.toFixed(2)} (${bags} bag${bags > 1 ? 's' : ''})`;
+  document.getElementById('ms-ship-usd').textContent = `$${shipUSD.toFixed(2)} (${bags} bag${bags>1?'s':''})`;
   document.getElementById('ms-ship-inr').textContent = `₹${shipINR.toLocaleString('en-IN')}`;
   const grandUSD = totalUSD + shipUSD;
   const grandINR = totalUSD * USD_TO_INR + shipINR;
@@ -380,74 +434,103 @@ function getVal(id) { const e = document.getElementById(id); return e ? e.value.
 
 function showToast(msg, err) {
   const t = document.getElementById('ms-toast');
-  t.innerHTML = `<i class="ti ti-${err ? 'alert-circle' : 'circle-check'}"></i> ${msg}`;
+  t.innerHTML = `<i class="ti ti-${err?'alert-circle':'circle-check'}"></i> ${msg}`;
   t.style.background = err ? '#a32d2d' : '#1a1a1a';
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2600);
+  setTimeout(() => t.classList.remove('show'), 2800);
 }
 
 function submitOrder() {
-  const fn=getVal('ms-fn'), sn=getVal('ms-sn'), mob=getVal('ms-mob'), addr=getVal('ms-addr'), city=getVal('ms-city'), pin=getVal('ms-pin'), state=getVal('ms-state');
+  const fn=getVal('ms-fn'), sn=getVal('ms-sn'), mob=getVal('ms-mob'),
+        addr=getVal('ms-addr'), city=getVal('ms-city'), pin=getVal('ms-pin'), state=getVal('ms-state');
   if (!fn||!sn||!mob||!addr||!city||!pin||!state) { showToast('Please fill all customer details', true); return; }
   if (!getVal('ct-1')) { showToast('Please select at least one coffee', true); return; }
+
   let coffees = [], bags = 0, subtotalUSD = 0;
   for (let i = 1; i <= coffeeCount; i++) {
     const name=getVal(`ct-${i}`), size=getVal(`cs-${i}`), qty=parseInt(document.getElementById(`cq-${i}`).value)||1;
     const unitUSD = getCoffeePrice(name, size);
-    coffees.push({name, size, qty, unitUSD});
+    if (name) { coffees.push({name, size, qty, unitUSD}); }
     if (name && size && unitUSD !== null) { subtotalUSD += unitUSD * qty; bags += qty; }
   }
+
   const shipINR = bags * SHIP_INR;
   const totalINR = subtotalUSD * USD_TO_INR + shipINR;
-  orders.push({seq: seq++, fn, sn, mob, addr, city, pin, state, coffees, subtotalUSD, shipINR, totalINR});
-  renderTable(); clearForm();
-  showToast('Order added to list!');
-}
+  const grandUSD = subtotalUSD + (shipINR / USD_TO_INR);
 
-function renderTable() {
-  document.getElementById('ms-count').textContent = orders.length;
-  document.getElementById('ms-orders-section').style.display = orders.length ? 'block' : 'none';
-  document.getElementById('ms-tbody').innerHTML = orders.map((o, idx) => {
-    const c = [0,1,2].map(i => o.coffees[i] || {name:'',size:'',qty:'',unitUSD:null});
-    return `<tr>
-      <td style="color:#999">${o.seq}</td>
-      <td style="font-weight:500">${o.fn} ${o.sn}</td>
-      <td style="font-family:monospace;font-size:11px">${o.mob}</td>
-      <td>${o.city}</td><td>${o.state}</td>
-      ${[0,1,2].map(i=>`<td style="max-width:130px;overflow:hidden;text-overflow:ellipsis;font-size:11px">${c[i].name}</td><td>${c[i].size}</td><td style="text-align:center">${c[i].qty||''}</td><td>${c[i].unitUSD!==null?'$'+(c[i].unitUSD*(c[i].qty||1)).toFixed(2):''}</td>`).join('')}
-      <td style="font-weight:500">$${o.subtotalUSD.toFixed(2)}</td>
-      <td>₹${o.shipINR.toLocaleString('en-IN')}</td>
-      <td style="font-weight:500">₹${o.totalINR.toLocaleString('en-IN')}</td>
-      <td><button class="ms-del" onclick="deleteOrder(${idx})" title="Remove"><i class="ti ti-trash" style="font-size:13px"></i></button></td>
-    </tr>`;
+  // Populate receipt card
+  document.getElementById('rc-customer').innerHTML = `
+    <div class="rc-detail"><div class="key">Name</div><div class="val">${fn} ${sn}</div></div>
+    <div class="rc-detail"><div class="key">Mobile</div><div class="val">${mob}</div></div>`;
+  document.getElementById('rc-address').innerHTML = `${addr},<br>${city} — ${pin},<br>${state}`;
+  document.getElementById('rc-coffees').innerHTML = coffees.filter(c=>c.name).map(c => {
+    const lineUSD = c.unitUSD !== null ? (c.unitUSD * c.qty).toFixed(2) : '—';
+    const lineINR = c.unitUSD !== null ? (c.unitUSD * c.qty * USD_TO_INR).toLocaleString('en-IN') : '—';
+    return `<div class="rc-coffee-row">
+      <div><div class="rc-coffee-name">${c.name}</div><div class="rc-coffee-meta">${c.size} · Qty ${c.qty}</div></div>
+      <div class="rc-coffee-price"><div class="usd">$${lineUSD}</div><div class="inr">₹${lineINR}</div></div>
+    </div>`;
   }).join('');
+
+  // Shipping line
+  document.getElementById('rc-coffees').innerHTML += `
+    <div class="rc-coffee-row" style="margin-top:4px">
+      <div><div class="rc-coffee-name" style="color:#aaa;font-weight:400">Shipping &amp; customs</div><div class="rc-coffee-meta">${bags} bag${bags>1?'s':''} × ₹800</div></div>
+      <div class="rc-coffee-price"><div class="usd" style="color:#aaa">$${(shipINR/USD_TO_INR).toFixed(2)}</div><div class="inr">₹${shipINR.toLocaleString('en-IN')}</div></div>
+    </div>`;
+
+  document.getElementById('rc-total-usd').textContent = `$${grandUSD.toFixed(2)} USD`;
+  document.getElementById('rc-total-inr').textContent = `≈ ₹${totalINR.toLocaleString('en-IN')} INR`;
+  document.getElementById('rc-mobile-footer').textContent = mob;
+
+  // Show modal
+  document.getElementById('ms-modal').classList.add('show');
+  clearForm();
 }
 
-function deleteOrder(idx) { orders.splice(idx, 1); renderTable(); }
+function closeModal() {
+  document.getElementById('ms-modal').classList.remove('show');
+}
+
+function downloadPNG() {
+  const card = document.getElementById('ms-receipt-card');
+  const btn = document.querySelector('.ms-dl-btn');
+  btn.innerHTML = '<i class="ti ti-loader"></i> Generating...';
+  btn.disabled = true;
+
+  html2canvas(card, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#ffffff',
+    logging: false
+  }).then(canvas => {
+    const link = document.createElement('a');
+    link.download = `momos_stash_order_${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    btn.innerHTML = '<i class="ti ti-download"></i> Save as Image';
+    btn.disabled = false;
+    showToast('Image saved!');
+  }).catch(() => {
+    btn.innerHTML = '<i class="ti ti-download"></i> Save as Image';
+    btn.disabled = false;
+    showToast('Could not generate image', true);
+  });
+}
 
 function clearForm() {
-  ['ms-fn','ms-sn','ms-mob','ms-addr','ms-city','ms-pin'].forEach(id => { const e=document.getElementById(id); if(e) e.value=''; });
+  ['ms-fn','ms-sn','ms-mob','ms-addr','ms-city','ms-pin'].forEach(id => {
+    const e = document.getElementById(id); if (e) e.value = '';
+  });
   document.getElementById('ms-state').value = '';
   coffeeCount = 1; renderCoffees();
   document.getElementById('ms-summary').style.display = 'none';
 }
 
-function exportExcel() {
-  if (!orders.length) { showToast('No orders to export', true); return; }
-  const headers = ['#','First Name','Surname','Mobile','Full Address','City','Pincode','State','Coffee 1','Size 1','Qty 1','Price 1 ($)','Coffee 2','Size 2','Qty 2','Price 2 ($)','Coffee 3','Size 3','Qty 3','Price 3 ($)','Subtotal ($)','Shipping & Customs (₹)','Total (₹)'];
-  const rows = orders.map(o => {
-    const c = [0,1,2].map(i => o.coffees[i] || {name:'',size:'',qty:'',unitUSD:null});
-    return [o.seq,o.fn,o.sn,o.mob,o.addr,o.city,o.pin,o.state,
-      ...c.flatMap(x=>[x.name,x.size,x.qty||'',x.unitUSD!==null?(x.unitUSD*(x.qty||1)).toFixed(2):''] ),
-      o.subtotalUSD.toFixed(2), o.shipINR, o.totalINR];
-  });
-  const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
-  ws['!cols'] = [4,12,12,13,28,12,9,14,26,8,5,10,26,8,5,10,26,8,5,10,12,18,12].map(w=>({wch:w}));
-  XLSX.utils.book_append_sheet(wb, ws, 'MoMo Stash Orders');
-  XLSX.writeFile(wb, `momos_stash_orders_${new Date().toISOString().slice(0,10)}.xlsx`);
-  showToast('Excel exported!');
-}
+// Close modal on overlay click
+document.getElementById('ms-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
 
 renderCoffees();
 </script>
