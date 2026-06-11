@@ -14,7 +14,6 @@
   .page-wrap { max-width: 680px; margin: 0 auto; }
   .ms-card { background: #ffffff; border-radius: 16px; border: 1px solid #e5e3dc; padding: 2rem; margin-bottom: 1rem; }
 
-  /* Header */
   .ms-header { display: flex; align-items: center; gap: 16px; margin-bottom: 1.75rem; padding-bottom: 1.25rem; border-bottom: 1px solid #ede9e0; }
   .ms-logo-wrap { width: 56px; height: 56px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .ms-logo-svg { width: 44px; height: 44px; }
@@ -43,20 +42,24 @@
   .ms-input:focus, .ms-sel:focus { outline: none; border-color: #1a1a1a; box-shadow: 0 0 0 3px rgba(26,26,26,.08); }
   .ms-sel { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 30px; }
 
+  /* Coffee cards */
   .cof-card { background: #fafaf8; border: 1px solid #e5e3dc; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
   .cof-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
   .cof-num { width: 22px; height: 22px; border-radius: 50%; background: #1a1a1a; color: #fff; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .cof-ttl { font-size: 13px; font-weight: 500; }
   .cof-rm { margin-left: auto; background: none; border: none; cursor: pointer; color: #aaa; font-size: 12px; display: flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-family: 'DM Sans', sans-serif; transition: all .15s; }
   .cof-rm:hover { background: #fee; color: #e24b4a; }
-  .cof-fields { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; }
+  .cof-fields { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: start; }
+  .cof-qty-wrap { width: 80px; }
   .ms-price-tag { font-size: 11px; color: #aaa; margin-top: 5px; min-height: 16px; }
   .ms-price-tag strong { color: #1a1a1a; }
+  .ms-size-pill { display: inline-flex; align-items: center; background: #f0ede6; border-radius: 20px; padding: 2px 8px; font-size: 11px; color: #777; font-weight: 500; margin-top: 5px; }
 
   .ms-add-btn { width: 100%; height: 38px; border: 1px dashed #ccc; border-radius: 8px; background: none; color: #999; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: 'DM Sans', sans-serif; transition: all .15s; margin-bottom: 4px; }
   .ms-add-btn:hover { border-color: #1a1a1a; color: #1a1a1a; background: rgba(0,0,0,.02); }
   .ms-add-btn:disabled { opacity: .35; cursor: not-allowed; }
 
+  /* Live summary */
   .ms-summary { background: #fafaf8; border: 1px solid #e5e3dc; border-radius: 12px; padding: 16px; margin-top: 1.25rem; display: none; }
   .ms-sum-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
   .ms-sum-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid #ede9e0; font-size: 13px; gap: 12px; }
@@ -69,6 +72,7 @@
   .ms-sum-total-inr { font-size: 12px; color: #888; text-align: right; padding-bottom: 4px; }
   .ms-ship-note { font-size: 11px; color: #aaa; margin-top: 10px; padding-top: 10px; border-top: 1px solid #ede9e0; line-height: 1.6; }
 
+  /* T&C */
   .ms-tnc { background: #fafaf8; border: 1px solid #e5e3dc; border-radius: 12px; padding: 14px 16px; margin-top: 1.25rem; }
   .ms-tnc-title { font-size: 12px; font-weight: 500; color: #555; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
   .ms-tnc ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -77,42 +81,31 @@
   .ms-tnc a { color: #1a1a1a; font-weight: 500; text-decoration: none; border-bottom: 1px solid #ccc; }
   .ms-tnc a:hover { border-color: #1a1a1a; }
 
+  /* Actions */
   .ms-actions { display: flex; gap: 10px; margin-top: 1.5rem; }
   .ms-btn-p { flex: 1; height: 42px; background: #1a1a1a; border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'DM Sans', sans-serif; transition: background .15s; }
   .ms-btn-p:hover { background: #333; }
   .ms-btn-s { height: 42px; padding: 0 18px; border: 1px solid #e0ddd5; border-radius: 8px; background: #fff; color: #555; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: 'DM Sans', sans-serif; transition: all .15s; }
   .ms-btn-s:hover { background: #fafaf8; }
 
-  /* ── CONFIRMATION MODAL ── */
-  .ms-modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 1000; padding: 1rem;
-    opacity: 0; pointer-events: none; transition: opacity .25s;
-  }
+  /* Modal */
+  .ms-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity .25s; }
   .ms-modal-overlay.show { opacity: 1; pointer-events: all; }
-  .ms-modal { background: #fff; border-radius: 16px; width: 100%; max-width: 480px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.2); transform: translateY(12px); transition: transform .25s; }
+  .ms-modal { background: #fff; border-radius: 16px; width: 100%; max-width: 480px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.2); transform: translateY(12px); transition: transform .25s; max-height: 90vh; overflow-y: auto; }
   .ms-modal-overlay.show .ms-modal { transform: translateY(0); }
 
-  /* The card that gets screenshotted */
-  #ms-receipt-card {
-    background: #fff;
-    padding: 28px 28px 20px;
-    font-family: 'DM Sans', sans-serif;
-  }
+  /* Receipt card */
+  #ms-receipt-card { background: #fff; padding: 28px 28px 20px; font-family: 'DM Sans', sans-serif; }
   .rc-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1.5px solid #1a1a1a; }
   .rc-logo { width: 40px; height: 40px; border-radius: 50%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .rc-brand { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #1a1a1a; }
   .rc-sub { font-size: 11px; color: #999; margin-top: 1px; }
-  .rc-badge { margin-left: auto; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 500; color: #15803d; display: flex; align-items: center; gap: 4px; }
-
+  .rc-badge { margin-left: auto; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 500; color: #15803d; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
   .rc-section-label { font-size: 10px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: #bbb; margin-bottom: 8px; margin-top: 16px; }
   .rc-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
-  .rc-detail { font-size: 12px; }
   .rc-detail .key { color: #aaa; font-size: 11px; }
-  .rc-detail .val { color: #1a1a1a; font-weight: 500; margin-top: 1px; }
+  .rc-detail .val { color: #1a1a1a; font-weight: 500; margin-top: 1px; font-size: 12px; }
   .rc-address { font-size: 12px; color: #1a1a1a; line-height: 1.6; }
-
   .rc-coffee-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f0ede6; font-size: 12px; gap: 8px; }
   .rc-coffee-row:last-of-type { border-bottom: none; }
   .rc-coffee-name { color: #1a1a1a; font-weight: 500; line-height: 1.4; }
@@ -120,18 +113,16 @@
   .rc-coffee-price { text-align: right; white-space: nowrap; }
   .rc-coffee-price .usd { font-weight: 500; color: #1a1a1a; }
   .rc-coffee-price .inr { font-size: 11px; color: #aaa; margin-top: 1px; }
-
   .rc-total-block { background: #1a1a1a; border-radius: 10px; padding: 14px 16px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; }
   .rc-total-label { font-size: 12px; color: #999; }
   .rc-total-label .main { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
   .rc-total-inr { text-align: right; }
   .rc-total-inr .usd-val { font-size: 15px; font-weight: 600; color: #fff; }
   .rc-total-inr .inr-val { font-size: 12px; color: #aaa; margin-top: 2px; }
-
   .rc-footer { margin-top: 16px; text-align: center; font-size: 10px; color: #ccc; line-height: 1.6; }
   .rc-footer strong { color: #aaa; }
 
-  /* Modal action buttons */
+  /* Modal actions */
   .ms-modal-actions { display: flex; gap: 10px; padding: 16px 28px 24px; background: #fafaf8; border-top: 1px solid #ede9e0; }
   .ms-dl-btn { flex: 1; height: 42px; background: #1a1a1a; border: none; border-radius: 8px; color: #fff; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'DM Sans', sans-serif; transition: background .15s; }
   .ms-dl-btn:hover { background: #333; }
@@ -141,12 +132,11 @@
   /* Toast */
   .ms-toast { position: fixed; bottom: 24px; right: 24px; background: #1a1a1a; color: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; display: flex; align-items: center; gap: 8px; opacity: 0; transition: opacity .25s; pointer-events: none; z-index: 9999; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
   .ms-toast.show { opacity: 1; }
-
   .ms-footer { text-align: center; font-size: 11px; color: #bbb; margin-top: 1.5rem; padding-bottom: 1rem; }
 
   @media (max-width: 560px) {
     .ms-card { padding: 1.25rem; }
-    .g2, .g3, .cof-fields { grid-template-columns: 1fr; }
+    .g2, .g3 { grid-template-columns: 1fr; }
     .ms-header { flex-wrap: wrap; }
     .ms-bw-credit { text-align: left; margin-left: 0; width: 100%; }
     #ms-receipt-card { padding: 20px; }
@@ -156,6 +146,7 @@
 <body>
 <div class="page-wrap">
   <div class="ms-card">
+
     <!-- HEADER -->
     <div class="ms-header">
       <div class="ms-logo-wrap">
@@ -217,7 +208,7 @@
       </div>
       <div class="ms-sum-total"><span>Total</span><span id="ms-total-usd"></span></div>
       <div class="ms-sum-total-inr" id="ms-total-inr"></div>
-      <div class="ms-ship-note">USD prices as listed on Black &amp; White Coffee Roasters' website. INR conversion at ₹100 per $1 USD. Shipping &amp; customs at ₹800 per bag.</div>
+      <div class="ms-ship-note">USD prices as listed on Black &amp; White Coffee Roasters' website. INR conversion at ₹100 per $1 USD. Shipping &amp; customs charged at ₹800 per bag.</div>
     </div>
 
     <!-- T&C -->
@@ -240,10 +231,9 @@
   <div class="ms-footer">MoMo's Stash · Private Coffee Drop · Powered with ☕</div>
 </div>
 
-<!-- ── CONFIRMATION MODAL ── -->
+<!-- MODAL -->
 <div class="ms-modal-overlay" id="ms-modal">
   <div class="ms-modal">
-    <!-- Receipt card (this is what gets screenshotted) -->
     <div id="ms-receipt-card">
       <div class="rc-header">
         <div class="rc-logo">
@@ -260,16 +250,12 @@
         </div>
         <div class="rc-badge">✓ Order Received</div>
       </div>
-
       <div class="rc-section-label">Customer</div>
       <div class="rc-detail-grid" id="rc-customer"></div>
-
       <div class="rc-section-label" style="margin-top:14px">Delivery address</div>
       <div class="rc-address" id="rc-address"></div>
-
       <div class="rc-section-label" style="margin-top:14px">Coffee order</div>
       <div id="rc-coffees"></div>
-
       <div class="rc-total-block">
         <div>
           <div class="rc-total-label main">Total payable</div>
@@ -280,14 +266,11 @@
           <div class="inr-val" id="rc-total-inr"></div>
         </div>
       </div>
-
       <div class="rc-footer">
         We'll reach out on <strong id="rc-mobile-footer"></strong> with payment details.<br>
         Follow <strong>@momos_stash</strong> on Instagram for more drops ☕
       </div>
     </div>
-
-    <!-- Action buttons (NOT included in screenshot) -->
     <div class="ms-modal-actions">
       <button class="ms-dl-btn" onclick="downloadPNG()"><i class="ti ti-download"></i> Save as Image</button>
       <button class="ms-close-btn" onclick="closeModal()"><i class="ti ti-x"></i> Close</button>
@@ -299,27 +282,24 @@
 
 <script>
 const COFFEES = [
-  {name:"El Burro - Natural Gesha Lot E", prices:{"6oz":18.00,"12oz":32.00}},
-  {name:"Julio Madrid - Nitro Watermelon", prices:{"6oz":16.00,"12oz":28.00}},
-  {name:"The Future - Summer Slush", prices:{"6oz":16.00,"12oz":28.00}},
-  {name:"Maikon Fernandez - Natural", prices:{"6oz":14.00,"12oz":26.00}},
-  {name:"Boutet - Natural Gesha", prices:{"6oz":10.50,"12oz":18.25}},
-  {name:"Baolian Lychee Peach - Advanced", prices:{"6oz":16.00,"12oz":28.00}},
-  {name:"Benjamin Paz - La Salsa SL28", prices:{"6oz":10.50,"12oz":18.25}},
-  {name:"Nahun Fernandez - Gesha", prices:{"6oz":16.00,"12oz":28.00}},
-  {name:"Jose Jijón - Putushio Washed", prices:{"6oz":18.00,"12oz":32.00}},
-  {name:"Julio Madrid - Gummy Bears", prices:{"6oz":16.00,"12oz":28.00}},
-  {name:"Lica Torres - Black Cherry Natural", prices:{"6oz":14.00,"12oz":26.00}},
-  {name:"Lasso y Vergara - Community Project", prices:{"6oz":14.00,"12oz":26.00}},
-  {name:"Hambela Natural - EA Decaf", prices:{"6oz":14.00,"12oz":26.00}},
-  {name:"Sebastian Ramirez - Red Fruits", prices:{"6oz":14.00,"12oz":26.00}},
-  {name:"Jairo Arcila - Caturra Washed", prices:{"6oz":12.00,"12oz":22.00}},
-  {name:"House Blend - The Mixtape", prices:{"6oz":10.00,"12oz":18.00}},
+  { name: "El Burro - Natural Gesha Lot E",      size: "100g",  price: 32.00 },
+  { name: "Julio Madrid - Nitro Watermelon",      size: "12oz",  price: 28.00 },
+  { name: "The Future - Summer Slush",            size: "12oz",  price: 28.00 },
+  { name: "Boutet - Natural Gesha",               size: "12oz",  price: 40.00 },
+  { name: "Benjamin Paz - La Salsa SL28",         size: "12oz",  price: 40.00 },
+  { name: "Nahun Fernandez - Gesha",              size: "12oz",  price: 28.00 },
+  { name: "Jose Jijón - Putushio Washed",         size: "100g",  price: 32.00 },
+  { name: "Julio Madrid - Gummy Bears",           size: "12oz",  price: 28.00 },
+  { name: "Lica Torres - Black Cherry Natural",   size: "12oz",  price: 26.00 },
+  { name: "Lasso y Vergara - Community Project",  size: "12oz",  price: 26.00 },
+  { name: "Hambela Natural - EA Decaf",           size: "12oz",  price: 26.00 },
+  { name: "The New School - Peach",               size: "12oz",  price: 22.00 },
+  { name: "Ramon Rodriguez - Washed",             size: "12oz",  price: 26.00 },
 ];
-const SIZES = ["6oz","12oz"];
+
 const USD_TO_INR = 100;
-const SHIP_INR = 800;
-let coffeeCount = 1;
+const SHIP_INR   = 800;
+let coffeeCount  = 1;
 
 function buildCoffeeCard(i) {
   const div = document.createElement('div');
@@ -332,23 +312,19 @@ function buildCoffeeCard(i) {
     </div>
     <div class="cof-fields">
       <div>
-        <label class="ms-lbl" for="ct-${i}">Coffee${i===1?' <span class="ms-req">*</span>':''}</label>
+        <label class="ms-lbl" for="ct-${i}">Select coffee${i===1?' <span class="ms-req">*</span>':''}</label>
         <select class="ms-sel" id="ct-${i}" onchange="updatePrice(${i})" style="width:100%;font-size:12px">
-          <option value="">Select coffee</option>
+          <option value="">Choose a coffee...</option>
           ${COFFEES.map(c => `<option value="${c.name}">${c.name}</option>`).join('')}
         </select>
-        <div class="ms-price-tag" id="ptag-${i}">Select a coffee to see price</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:5px;min-height:20px">
+          <span class="ms-size-pill" id="spill-${i}" style="display:none"></span>
+          <span class="ms-price-tag" id="ptag-${i}"></span>
+        </div>
       </div>
-      <div>
-        <label class="ms-lbl" for="cs-${i}">Size</label>
-        <select class="ms-sel" id="cs-${i}" onchange="updatePrice(${i})" style="width:100%">
-          <option value="">Select</option>
-          ${SIZES.map(s => `<option>${s}</option>`).join('')}
-        </select>
-      </div>
-      <div>
+      <div class="cof-qty-wrap">
         <label class="ms-lbl" for="cq-${i}">Qty</label>
-        <input class="ms-input" id="cq-${i}" type="number" min="1" max="10" value="1" onchange="updateSummary()">
+        <input class="ms-input" id="cq-${i}" type="number" min="1" max="10" value="1" onchange="updateSummary()" style="text-align:center">
       </div>
     </div>`;
   return div;
@@ -368,32 +344,28 @@ function removeCoffee(idx) {
   if (coffeeCount > 1) {
     for (let j = idx; j < coffeeCount; j++) {
       document.getElementById(`ct-${j}`).value = document.getElementById(`ct-${j+1}`).value;
-      document.getElementById(`cs-${j}`).value = document.getElementById(`cs-${j+1}`).value;
       document.getElementById(`cq-${j}`).value = document.getElementById(`cq-${j+1}`).value;
+      updatePrice(j);
     }
     coffeeCount--; renderCoffees();
   }
 }
 
-function getCoffeePrice(name, size) {
-  const cf = COFFEES.find(c => c.name === name);
-  if (!cf || !size || !cf.prices[size]) return null;
-  return cf.prices[size];
-}
+function getCoffee(name) { return COFFEES.find(c => c.name === name) || null; }
 
 function updatePrice(i) {
-  const name = document.getElementById(`ct-${i}`)?.value;
-  const size = document.getElementById(`cs-${i}`)?.value;
-  const tag = document.getElementById(`ptag-${i}`);
+  const name  = document.getElementById(`ct-${i}`)?.value;
+  const pill  = document.getElementById(`spill-${i}`);
+  const tag   = document.getElementById(`ptag-${i}`);
   if (!tag) return;
-  const p = getCoffeePrice(name, size);
-  if (p !== null) {
-    tag.innerHTML = `<strong>$${p.toFixed(2)} USD</strong> &nbsp;·&nbsp; ₹${(p*USD_TO_INR).toLocaleString('en-IN')} per bag`;
-  } else if (name && !size) {
-    const cf = COFFEES.find(c => c.name === name);
-    tag.innerHTML = `6oz from <strong>$${cf.prices['6oz'].toFixed(2)}</strong> &nbsp;·&nbsp; 12oz from <strong>$${cf.prices['12oz'].toFixed(2)}</strong>`;
+  const cf = getCoffee(name);
+  if (cf) {
+    pill.textContent = cf.size;
+    pill.style.display = 'inline-flex';
+    tag.innerHTML = `<strong>$${cf.price.toFixed(2)} USD</strong> · ₹${(cf.price * USD_TO_INR).toLocaleString('en-IN')}`;
   } else {
-    tag.innerHTML = 'Select a coffee to see price';
+    pill.style.display = 'none';
+    tag.innerHTML = '';
   }
   updateSummary();
 }
@@ -402,30 +374,32 @@ function updateSummary() {
   let lines = [], totalUSD = 0, bags = 0;
   for (let i = 1; i <= coffeeCount; i++) {
     const name = document.getElementById(`ct-${i}`)?.value;
-    const size = document.getElementById(`cs-${i}`)?.value;
-    const qty = parseInt(document.getElementById(`cq-${i}`)?.value) || 1;
-    if (name && size) {
-      const p = getCoffeePrice(name, size);
-      if (p !== null) { lines.push({name, size, qty, unitUSD: p}); totalUSD += p * qty; bags += qty; }
-    }
+    const qty  = parseInt(document.getElementById(`cq-${i}`)?.value) || 1;
+    const cf   = getCoffee(name);
+    if (cf) { lines.push({...cf, qty}); totalUSD += cf.price * qty; bags += qty; }
   }
   const sumDiv = document.getElementById('ms-summary');
   if (lines.length === 0) { sumDiv.style.display = 'none'; return; }
   sumDiv.style.display = 'block';
+
   document.getElementById('ms-sum-lines').innerHTML = lines.map(l => `
     <div class="ms-sum-row">
-      <span class="ms-sum-label">${l.name} <span style="font-size:11px;color:#bbb">(${l.size} × ${l.qty})</span></span>
+      <span class="ms-sum-label">${l.name}
+        <span style="font-size:11px;color:#bbb;display:block">${l.size} · Qty ${l.qty}</span>
+      </span>
       <div>
-        <div class="ms-sum-val">$${(l.unitUSD*l.qty).toFixed(2)}</div>
-        <div class="ms-sum-val-inr">₹${(l.unitUSD*l.qty*USD_TO_INR).toLocaleString('en-IN')}</div>
+        <div class="ms-sum-val">$${(l.price * l.qty).toFixed(2)}</div>
+        <div class="ms-sum-val-inr">₹${(l.price * l.qty * USD_TO_INR).toLocaleString('en-IN')}</div>
       </div>
     </div>`).join('');
-  const shipINR = bags * SHIP_INR;
-  const shipUSD = shipINR / USD_TO_INR;
-  document.getElementById('ms-ship-usd').textContent = `$${shipUSD.toFixed(2)} (${bags} bag${bags>1?'s':''})`;
-  document.getElementById('ms-ship-inr').textContent = `₹${shipINR.toLocaleString('en-IN')}`;
+
+  const shipINR  = bags * SHIP_INR;
+  const shipUSD  = shipINR / USD_TO_INR;
   const grandUSD = totalUSD + shipUSD;
   const grandINR = totalUSD * USD_TO_INR + shipINR;
+
+  document.getElementById('ms-ship-usd').textContent = `$${shipUSD.toFixed(2)} (${bags} bag${bags > 1 ? 's' : ''})`;
+  document.getElementById('ms-ship-inr').textContent  = `₹${shipINR.toLocaleString('en-IN')}`;
   document.getElementById('ms-total-usd').textContent = `$${grandUSD.toFixed(2)} USD`;
   document.getElementById('ms-total-inr').textContent = `≈ ₹${grandINR.toLocaleString('en-IN')} INR`;
 }
@@ -434,7 +408,7 @@ function getVal(id) { const e = document.getElementById(id); return e ? e.value.
 
 function showToast(msg, err) {
   const t = document.getElementById('ms-toast');
-  t.innerHTML = `<i class="ti ti-${err?'alert-circle':'circle-check'}"></i> ${msg}`;
+  t.innerHTML = `<i class="ti ti-${err ? 'alert-circle' : 'circle-check'}"></i> ${msg}`;
   t.style.background = err ? '#a32d2d' : '#1a1a1a';
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2800);
@@ -448,90 +422,82 @@ function submitOrder() {
 
   let coffees = [], bags = 0, subtotalUSD = 0;
   for (let i = 1; i <= coffeeCount; i++) {
-    const name=getVal(`ct-${i}`), size=getVal(`cs-${i}`), qty=parseInt(document.getElementById(`cq-${i}`).value)||1;
-    const unitUSD = getCoffeePrice(name, size);
-    if (name) { coffees.push({name, size, qty, unitUSD}); }
-    if (name && size && unitUSD !== null) { subtotalUSD += unitUSD * qty; bags += qty; }
+    const name = getVal(`ct-${i}`);
+    const qty  = parseInt(document.getElementById(`cq-${i}`).value) || 1;
+    const cf   = getCoffee(name);
+    if (cf) { coffees.push({...cf, qty}); subtotalUSD += cf.price * qty; bags += qty; }
   }
+  if (coffees.length === 0) { showToast('Please select at least one coffee', true); return; }
 
-  const shipINR = bags * SHIP_INR;
+  const shipINR  = bags * SHIP_INR;
   const totalINR = subtotalUSD * USD_TO_INR + shipINR;
-  const grandUSD = subtotalUSD + (shipINR / USD_TO_INR);
+  const grandUSD = subtotalUSD + shipINR / USD_TO_INR;
 
-  // Populate receipt card
+  // Populate receipt
   document.getElementById('rc-customer').innerHTML = `
     <div class="rc-detail"><div class="key">Name</div><div class="val">${fn} ${sn}</div></div>
     <div class="rc-detail"><div class="key">Mobile</div><div class="val">${mob}</div></div>`;
   document.getElementById('rc-address').innerHTML = `${addr},<br>${city} — ${pin},<br>${state}`;
-  document.getElementById('rc-coffees').innerHTML = coffees.filter(c=>c.name).map(c => {
-    const lineUSD = c.unitUSD !== null ? (c.unitUSD * c.qty).toFixed(2) : '—';
-    const lineINR = c.unitUSD !== null ? (c.unitUSD * c.qty * USD_TO_INR).toLocaleString('en-IN') : '—';
-    return `<div class="rc-coffee-row">
-      <div><div class="rc-coffee-name">${c.name}</div><div class="rc-coffee-meta">${c.size} · Qty ${c.qty}</div></div>
-      <div class="rc-coffee-price"><div class="usd">$${lineUSD}</div><div class="inr">₹${lineINR}</div></div>
-    </div>`;
-  }).join('');
-
-  // Shipping line
-  document.getElementById('rc-coffees').innerHTML += `
+  document.getElementById('rc-coffees').innerHTML = coffees.map(c => `
+    <div class="rc-coffee-row">
+      <div>
+        <div class="rc-coffee-name">${c.name}</div>
+        <div class="rc-coffee-meta">${c.size} · Qty ${c.qty}</div>
+      </div>
+      <div class="rc-coffee-price">
+        <div class="usd">$${(c.price * c.qty).toFixed(2)}</div>
+        <div class="inr">₹${(c.price * c.qty * USD_TO_INR).toLocaleString('en-IN')}</div>
+      </div>
+    </div>`).join('') + `
     <div class="rc-coffee-row" style="margin-top:4px">
-      <div><div class="rc-coffee-name" style="color:#aaa;font-weight:400">Shipping &amp; customs</div><div class="rc-coffee-meta">${bags} bag${bags>1?'s':''} × ₹800</div></div>
-      <div class="rc-coffee-price"><div class="usd" style="color:#aaa">$${(shipINR/USD_TO_INR).toFixed(2)}</div><div class="inr">₹${shipINR.toLocaleString('en-IN')}</div></div>
+      <div>
+        <div class="rc-coffee-name" style="color:#aaa;font-weight:400">Shipping &amp; customs</div>
+        <div class="rc-coffee-meta">${bags} bag${bags > 1 ? 's' : ''} × ₹800</div>
+      </div>
+      <div class="rc-coffee-price">
+        <div class="usd" style="color:#aaa">$${(shipINR / USD_TO_INR).toFixed(2)}</div>
+        <div class="inr">₹${shipINR.toLocaleString('en-IN')}</div>
+      </div>
     </div>`;
 
-  document.getElementById('rc-total-usd').textContent = `$${grandUSD.toFixed(2)} USD`;
-  document.getElementById('rc-total-inr').textContent = `≈ ₹${totalINR.toLocaleString('en-IN')} INR`;
+  document.getElementById('rc-total-usd').textContent  = `$${grandUSD.toFixed(2)} USD`;
+  document.getElementById('rc-total-inr').textContent  = `≈ ₹${totalINR.toLocaleString('en-IN')} INR`;
   document.getElementById('rc-mobile-footer').textContent = mob;
 
-  // Show modal
   document.getElementById('ms-modal').classList.add('show');
   clearForm();
 }
 
-function closeModal() {
-  document.getElementById('ms-modal').classList.remove('show');
-}
+function closeModal() { document.getElementById('ms-modal').classList.remove('show'); }
 
 function downloadPNG() {
   const card = document.getElementById('ms-receipt-card');
-  const btn = document.querySelector('.ms-dl-btn');
+  const btn  = document.querySelector('.ms-dl-btn');
   btn.innerHTML = '<i class="ti ti-loader"></i> Generating...';
-  btn.disabled = true;
-
-  html2canvas(card, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: '#ffffff',
-    logging: false
-  }).then(canvas => {
+  btn.disabled  = true;
+  html2canvas(card, { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false }).then(canvas => {
     const link = document.createElement('a');
     link.download = `momos_stash_order_${Date.now()}.png`;
     link.href = canvas.toDataURL('image/png');
     link.click();
     btn.innerHTML = '<i class="ti ti-download"></i> Save as Image';
-    btn.disabled = false;
+    btn.disabled  = false;
     showToast('Image saved!');
   }).catch(() => {
     btn.innerHTML = '<i class="ti ti-download"></i> Save as Image';
-    btn.disabled = false;
+    btn.disabled  = false;
     showToast('Could not generate image', true);
   });
 }
 
 function clearForm() {
-  ['ms-fn','ms-sn','ms-mob','ms-addr','ms-city','ms-pin'].forEach(id => {
-    const e = document.getElementById(id); if (e) e.value = '';
-  });
+  ['ms-fn','ms-sn','ms-mob','ms-addr','ms-city','ms-pin'].forEach(id => { const e = document.getElementById(id); if (e) e.value = ''; });
   document.getElementById('ms-state').value = '';
   coffeeCount = 1; renderCoffees();
   document.getElementById('ms-summary').style.display = 'none';
 }
 
-// Close modal on overlay click
-document.getElementById('ms-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-
+document.getElementById('ms-modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 renderCoffees();
 </script>
 </body>
